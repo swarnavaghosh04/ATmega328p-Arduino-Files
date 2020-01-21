@@ -2,7 +2,7 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #define BPM 100
-#include <music.h>
+#include "..\ATmega328p-Arduino-Files\headers\music.h" // !!!!!!!!!!!!!!
 
 #ifndef F_CPU
 #define F_CPU 16000000UL
@@ -14,12 +14,12 @@ ISR(TIMER0_OVF_vect){
 
 int main(){
 
-    DDRD |= (1 << PD6);
+    DDRD |= (1 << PD6);    // Set PD6 (pin 6) as output
 
-    TCCR0A = 0b01000010;
-    TCCR0B = 0b00000011;
-    TIMSK0 = 0b00000001;
-    sei();
+    TCCR0A = 0b01000010;   // Toggle OC0A (PD6) on compare match | Normal port peration for OC0B (PD5) | CTC Mode
+    TCCR0B = 0b00000100;   // Prescalaing: ClockIO / 256
+    TIMSK0 = 0b00000001;   // Overflow interrupt enabled
+    sei();                 // Enable global interrupts
 
     // Monody
 

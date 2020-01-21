@@ -1,10 +1,30 @@
+/*
+
+DEFINE (not necessary):
+    BPM - Beats per minute (Default: 100)
+    INT_PIN - interrput pin > can be either OCR0A or OCR0B (Default: OCR0A)
+
+SETUP: 
+    TCCR0A = 0b01000010;   // Toggle OC0A (PD6) on compare match | Normal port peration for OC0B (PD5) | CTC Mode
+    TCCR0B = 0b00000100;   // Prescalaing: ClockIO / 256
+    TIMSK0 = 0b00000001;   // Overflow interrupt enabled
+
+    ISR(TIMER0_OVF_vect){
+        TIFR0 |= 1; // Clear Overflow
+    }
+
+*/
 #pragma once
 
 #ifndef BPM
 #define BPM 120
 #endif
 
-#define FREQUENCY(f) (31250./f - 1.)
+#ifndef INT_PIN
+#define INT_PIN OCR0A
+#endif
+
+#define FREQUENCY(f) (F_CPU/(256.*f) - 1.)
 #define BWIDTH_ms (double)(60000./BPM)
 #define DETACH BWIDTH_ms*0.05
 
@@ -70,12 +90,12 @@
 #define NOTE_16_D 0.375
 
 #define PLAY_NOTE_N(note, duration) ({\
-    OCR0A = note;\
+    INT_PIN = note;\
     _delay_ms(BWIDTH_ms*duration);\
 })
 
 #define PLAY_NOTE_D(note, duration) ({\
-    OCR0A = note;\
+    INT_PIN = note;\
     _delay_ms(BWIDTH_ms*duration - DETACH);\
     STOP_SOUND();\
     _delay_ms(DETACH);\
@@ -83,7 +103,7 @@
 })
 
 #define PLAY_NOTE_S(note, duration) ({\
-    OCR0A = note;\
+    INT_PIN = note;\
     _delay_ms(DETACH);\
     STOP_SOUND;\
     _delay_ms(BWIDTH_ms*duration - DETACH);\
@@ -91,7 +111,7 @@
 })
 
 #define PLAY_NOTE(note, duration, flag)({\
-    OCR0A = note;\
+    INT_PIN = note;\
     if(flag <= 0){\
         _delay_ms(BWIDTH_ms*duration);\
     }else if(flag == 1){\
