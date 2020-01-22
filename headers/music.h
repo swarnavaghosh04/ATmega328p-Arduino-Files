@@ -24,7 +24,7 @@ SETUP:
 #define INT_PIN OCR0A
 #endif
 
-#define FREQUENCY(f) (F_CPU/(256.*f) - 1.)
+#define FREQUENCY(f) (F_CPU/(512.*f) - 1.)
 #define BWIDTH_ms (double)(60000./BPM)
 #define DETACH BWIDTH_ms*0.05
 

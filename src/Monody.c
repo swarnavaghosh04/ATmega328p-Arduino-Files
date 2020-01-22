@@ -2,7 +2,7 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #define BPM 100
-#include "..\ATmega328p-Arduino-Files\headers\music.h" // !!!!!!!!!!!!!!
+#include "music.h" // !!!!!!!!!!!!!!
 
 #ifndef F_CPU
 #define F_CPU 16000000UL
