@@ -1,5 +1,4 @@
 /*
-
 DEFINE (not necessary):
     BPM - Beats per minute (Default: 100)
     INT_PIN - interrput pin > can be either OCR0A or OCR0B (Default: OCR0A)
@@ -110,6 +109,12 @@ SETUP:
     START_SOUND;\
 })
 
+/*
+Flag:
+    <= 0 - Regular note
+    = 1 - Detached notes (not staccato)
+    >= 2 - Staccato
+*/
 #define PLAY_NOTE(note, duration, flag)({\
     INT_PIN = note;\
     if(flag <= 0){\
@@ -127,4 +132,3 @@ SETUP:
         START_SOUND;\
     }\
 })
-
