@@ -1,6 +1,6 @@
 /*
 DEFINE (not necessary):
-    BPM - Beats per minute (Default: 100)
+    BPM - Beats per minute (Default: 120)
     INT_PIN - interrput pin > can be either OCR0A or OCR0B (Default: OCR0A)
 
 SETUP: 
