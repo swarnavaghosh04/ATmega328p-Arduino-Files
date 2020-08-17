@@ -2,7 +2,7 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #define BPM 100
-#include "..\\headers\\music.h" // !!!!!!!!
+#include "..\\include\\music.h" // !!!!!!!!
 
 #ifndef F_CPU
 #define F_CPU 16000000UL
