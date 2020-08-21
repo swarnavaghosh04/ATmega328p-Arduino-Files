@@ -39,20 +39,15 @@ int main(){
     // Enable USART0 transmitter
     UCSR0B |= (1 << TXEN0);
 
-    const char* const data[] = {"This is Atmega328p\n", "Made by...\n", "Swarnava Ghosh\n"};
-    unsigned char outChar;
-    unsigned int counter;
+    const char message[] = "Hello, This is ATMega328p Arduino\n";
+    const char* p_outChar;
     while(1){
-        for(unsigned int i = 0; i < 3; i++){
-            counter = 0;
-            do{
-                outChar = data[i][counter];
-                counter++;
-                while(!(UCSR0A & (1 << UDRE0)));
-                UDR0 = outChar;
-            }while(outChar!=0);
+        p_outChar = message;
+        while(*p_outChar != 0){
+            while(!(UCSR0A & (1 << UDRE0))){}
+            UDR0 = *(p_outChar++);
         }
-        //_delay_ms(1000);
+        _delay_ms(2000);
     }
 
     return 0;
